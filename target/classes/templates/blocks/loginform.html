@@ -1,0 +1,30 @@
+<div th:fragment=login xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Username:</label>
+        <div class="col-sm-6">
+            <input name="username" placeholder="Username." th:class="${usernameError}?'form-control is-invalid':'form-control'"
+                   th:value="${user}?${user.username}"
+                   type="text"/>
+            <div th:if="${usernameError}">
+                <td th:text="${usernameError}">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"> Password:</label>
+        <div class="col-sm-6">
+            <input name="password" placeholder="Confirm password." th:class="${passwordError}?'form-control is-invalid':'form-control'"
+                   type="password"/>
+            <div th:if="${passwordError}">
+                <td th:text="${passwordError}">
+            </div>
+        </div>
+    </div>
+    <div>
+
+    </div>
+
+</div>

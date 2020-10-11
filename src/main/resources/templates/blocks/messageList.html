@@ -1,0 +1,37 @@
+<div th:fragment=messageList xmlns:th="http://www.w3.org/1999/xhtml">
+    <div th:insert="blocks/pager :: pager"></div>
+
+    <div class="row float-center">
+        <tr th:each="pages : ${page}">
+            <div class="card mt-3 mr-3 ml-3 border " style="width: 20rem;">
+                <div class="card-img-top" th:if="${pages.filename}">
+                    <img class="card-img-top" height="203"
+                         th:src="@{{image}(image=${(pages.filename != null && !#strings.isEmpty(pages.filename)) ? '/img/' + pages.filename:''})}"
+                         width="152">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${pages.text}"/>
+                    <p class="card-text" th:text="'#'+${pages.tag}"/>
+                </div>
+                <div class="card-footer  d-block">
+                    <a th:href="@{'/user-messages/' + ${pages.author.id}}"
+                       th:text="${pages.authorName}"></a>
+                    <a class="float-right" th:href="'/messages/'+${pages.id}+'/like' ">
+                        <i th:class="${pages.meLiked}?'fas fa-heart':'far fa-heart'" th:text="${pages.likes}"></i>
+                    </a>
+                </div>
+                <a class="btn btn-primary ml-2 mt-2 mb-2"
+                   th:href="@{'/user-messages/' + ${pages.author.id}+'/message='+${pages.id}}"
+                   th:if="${isCurrentUser}" th:text="Edit"></a>
+                <a class="btn btn-primary ml-2 mt-2 mb-2"
+                   th:href="@{'/user-messages/' + ${pages.author.id}+'/delete='+${pages.id}}"
+                   th:if="${isCurrentUser}" th:text="Delete"></a>
+
+
+            </div>
+        </tr>
+
+    </div>
+    <div th:insert="blocks/pager :: pager"></div>
+</div>
+

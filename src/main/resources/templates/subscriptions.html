@@ -1,0 +1,15 @@
+<th:block xmlns:th="http://www.w3.org/1999/xhtml">
+    <div th:insert="blocks/common :: common"></div>
+    <div class="container mt-5">
+        <h2>
+            <div th:text="${userChannel.username}+' '+ ${type}"></div>
+        </h2>
+        <ul class="list-group">
+            <div th:each="user : ${users}">
+                <li class="list-group-item">
+                    <a th:href="'/user-messages/'+${user.id}" th:text="${user.username}"></a>
+                </li>
+            </div>
+        </ul>
+    </div>
+</th:block>

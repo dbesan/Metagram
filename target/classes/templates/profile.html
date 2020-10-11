@@ -1,0 +1,31 @@
+<th:block xmlns:th="http://www.w3.org/1999/xhtml">
+    <div th:insert="blocks/common :: common" xmlns:th="http://www.w3.org/1999/xhtml"></div>
+    <div class="container mt-5">
+        <h5 th:text="${user.username}"></h5>
+        <div th:if="${message}">
+            <td th:text="${message}">
+        </div>
+
+        <form method="post" th:action="@{/user/profile}">
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"> Password:</label>
+                <div class="col-sm-6">
+                    <input class="form-control" name="password" placeholder="Password" type="password"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"> Email:</label>
+                <div class="col-sm-6">
+                    <input class="form-control" name="email" placeholder="some@some.com" th:value="${user.email}"
+                           type="email"/>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Save</button>
+        </form>
+        <a class="btn btn-danger ml-2 mt-2 mb-2" th:href="@{'/user/profile/delete'}" th:text="'Delete account'"></a>
+    </div>
+    <div th:insert="blocks/lower :: lower" xmlns:th="http://www.w3.org/1999/xhtml"></div>
+    </div>
+</th:block>

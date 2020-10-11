@@ -1,0 +1,18 @@
+<th:block xmlns:th="http://www.w3.org/1999/xhtml">
+    <div th:insert="blocks/common :: common"></div>
+    <div class="container mt-5">
+        <h1 th:inline="text">Hello, [[${#httpServletRequest.remoteUser}]]!</h1>
+    </div>
+    <div class="container mt-5">
+        <div class="form-row">
+            <form action="/main" class="form-inline" method="get">
+                <input class="form-control" name="filter" placeholder="Search by tag" th:value="${filter}" type="text">
+                <button class="btn btn-primary ml-2" type="submit">Search</button>
+            </form>
+        </div>
+        <div th:insert="blocks/editForm :: editForm"></div>
+        <div th:insert="blocks/messageList :: messageList"></div>
+
+    </div>
+    <div th:insert="blocks/lower :: lower"></div>
+</th:block>

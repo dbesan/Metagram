@@ -1,0 +1,41 @@
+<th:block xmlns:th="http://www.w3.org/1999/xhtml"
+
+>
+    <div th:insert="blocks/common :: common" xmlns:th="http://www.w3.org/1999/xhtml"></div>
+
+
+    <div class="container mt-5">
+        <h2 class="mt-5 mb-5">Welcome back.</h2>
+        <div></div>
+        <div th:if="${message}">
+            <td th:text="${message}">
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${param.error}">
+            Invalid username or password.
+        </div>
+        <div role="alert" th:class="${message}?'alert alert-'+${messageType}:''">
+            <td th:text="${message}">
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <form method="post" th:action="@{/login}">
+            <div th:insert="blocks/loginform :: login"></div>
+            <div>
+                <!--                <form action="?" method="POST">-->
+                <!--                    <div class="g-recaptcha" data-sitekey="6LdOmfkUAAAAAHIFCSl-SvVX8ebJ1WBE55Vt_pk9"></div>-->
+                <!--                    <br/>-->
+                <!--                    <button type="submit" class="btn btn-primary">Sign in</button>-->
+                <!--                </form>-->
+                <button class="btn btn-primary" type="submit">Sign in</button>
+                <div role="alert" th:class="${captchaError}?'alert alert-danger':''">
+                    <td th:text="${captchaError}">
+                </div>
+            </div>
+
+        </form>
+        <span>Not register yet? Click </span><a href="/registration">here</a><span>.</span>
+    </div>
+    <div th:insert="blocks/lower :: lower" xmlns:th="http://www.w3.org/1999/xhtml"></div>
+    </div>
+</th:block>

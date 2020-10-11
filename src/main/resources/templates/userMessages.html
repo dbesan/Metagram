@@ -1,0 +1,111 @@
+<th:block xmlns:th="http://www.w3.org/1999/xhtml">
+    <div th:insert="blocks/common :: common"></div>
+    <div class="container mt-5">
+        <h2>
+            <div th:text="${user.username}+' channel'"></div>
+        </h2>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Subscriptions</div>
+                        <h3 class="card-text">
+                            <a th:href="'/user/subscriptions/'+${user.id}+'/list'"
+                               th:text="${user.getSubscriptions().size()}"></a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Subscribers</div>
+                        <h3 class="card-text">
+                            <a th:href="'/user/subscribers/'+${user.id}+'/list'"
+                               th:text="${user.getSubscribers().size()}"></a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="!${isCurrentUser}">
+            <a class="btn btn-info mt-2"
+               th:href="${isSubscriber}?'/user/unsubscribe/'+${user.id}:'/user/subscribe/'+${user.id}"
+               th:text="${isSubscriber}?'Unsubscribe':'Subscribe'"></a>
+        </div>
+    </div>
+
+
+    <div th:if="${isCurrentUser}">
+        <div class="container">
+            <a aria-controls="collapseExample" aria-expanded="false" class="btn btn-primary" data-toggle="collapse"
+               hidden
+               href="#inputForm"
+               role="button">
+                Message editor
+            </a>
+            <div id="inputForm"
+                 th:class="${textError} or ${tagError} or ${filenameError}  or ${message}?'collapse show':'collapse'">
+                <div class="form-group mt-3">
+                    <form enctype="multipart/form-data" method="post"
+                          th:action="@{${isEditing}?'/user-messages/' + ${#authentication.principal.id}:'/user-messages/' + ${#authentication.principal.id}+'/add'}">
+                        <div class="form-group">
+
+                            <div class="form-group">
+                                <input name="text" placeholder="Your Message"
+                                       th:class="${textError}?'form-control is-invalid':'form-control'"
+                                       th:value="${message}?${message.text}:''" type="text">
+                                <div th:if="${textError}">
+                                    <td th:text="${textError}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input name="tag" placeholder="Tag"
+                                       th:class="${tagError}?'form-control is-invalid':'form-control'"
+                                       th:value="${message}?${message.tag}:''" type="text">
+                                <div th:if="${tagError}">
+                                    <td th:text="${tagError}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="custom-file">
+                                    <input class="custom-file-input" id="customFile" name="file" type="file">
+                                    <label class="custom-file-label" for="customFile"
+                                           th:text="${filename}?${filename}:'Choose file'"></label>
+                                </div>
+                            </div>
+                            <div class="card-columns mt-3" th:if="${message}">
+                                <img class="card-img-top" height="203" th:if="${message.filename}"
+                                     th:src="@{{image}(image=${(message.filename != null && !#strings.isEmpty(message.filename)) ? '/img/' + message.filename:''})}"
+                                     width="152">
+                            </div>
+                            <div>
+                                <input name="id" th:value="${message}?${message.id}:''" type="hidden"/>
+                                <div th:if="${idError}">
+                                    <td th:text="${idError}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary  mt-3 " type="submit">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <a aria-controls="collapseExample" aria-expanded="false" class="btn btn-primary" data-toggle="collapse"
+           href="#inputForm"
+           role="button">
+            Add new message.
+        </a>
+    </div>
+    <div class="container mt-5">
+        <div th:insert="blocks/messageList :: messageList"></div>
+    </div>
+    <div th:insert="blocks/lower :: lower"></div>
+</th:block>

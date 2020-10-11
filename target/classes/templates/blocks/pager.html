@@ -1,0 +1,36 @@
+<div th:fragment=pager xmlns:th="http://www.w3.org/1999/xhtml">
+    <div>
+        <ul class="pagination mt-3">
+            <div th:each="pageNumeration: ${#numbers.sequence('1', pageCount)}"
+                 th:if="${pageCount}<7">
+                <li th:class="${#request.getParameter('page')}==${pageNumeration}?'page-item active':'page-item'">
+                    <a class="page-link"
+                       th:href="'/main'+'?page='+${pageNumeration}"
+                       th:text="${pageNumeration}"></a></li>
+            </div>
+            <th:block th:if="${pageCount}>7">
+                <div th:each="pageNumeration: ${#numbers.sequence('1', '3')}">
+                    <li th:class="${#request.getParameter('page')}==${pageNumeration}?'page-item active':'page-item'">
+                        <a class="page-link"
+                           th:href="'/main'+'?page='+${pageNumeration}"
+                           th:text="${pageNumeration}"></a></li>
+                </div>
+
+                <div>
+                    <li class="page-item item"><a class="page-link disabled" href="#">...</a></li>
+                </div>
+
+
+                <div th:each="pageNumeration: ${#numbers.sequence(pageCount-3, pageCount)}">
+                    <li th:class="${#request.getParameter('page')}==${pageNumeration}?'page-item active':'page-item'">
+                        <a class="page-link"
+                           th:href="'/main'+'?page='+${pageNumeration}"
+                           th:text="${pageNumeration}"></a></li>
+                </div>
+
+            </th:block>
+
+
+        </ul>
+    </div>
+</div>

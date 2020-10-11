@@ -1,0 +1,48 @@
+<th:block xmlns:th="http://www.w3.org/1999/xhtml">
+    <div th:insert="blocks/common :: common"></div>
+
+    <div class="container mt-5">
+        <h2 class="mt-5 mb-5">Registration</h2>
+
+    </div>
+    <form class=" container mt-5 float-center" method="post" th:action="@{/registration}">
+        <div role="alert" th:class="${captchaError}?'alert alert-danger':''">
+            <td th:text="${captchaError}">
+        </div>
+        <div th:insert="blocks/loginform :: login"></div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label"> Confirm password:</label>
+            <div class="col-sm-6">
+                <input name="password2" placeholder="Confirm password."
+                       th:class="${password2Error}?'form-control is-invalid':'form-control'"
+                       type="password2"/>
+                <div th:if="${passwordError}">
+                    <td th:text="${passwordError}">
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label"> Email:</label>
+            <div class="col-sm-6">
+                <input name="email" placeholder="some@some.com"
+                       th:class="${emailError}?'form-control is-invalid':'form-control'"
+                       th:value="${user}?${user.email}"
+                       type="email"/>
+
+                <div th:if="${emailError}">
+                    <td th:text="${emailError}">
+                </div>
+            </div>
+        </div>
+        <div>
+            <form action="?" method="POST">
+                <div class="g-recaptcha" data-sitekey="6LdOmfkUAAAAAHIFCSl-SvVX8ebJ1WBE55Vt_pk9"></div>
+                <br/>
+                <button class="btn btn-primary" type="submit">Sign up</button>
+            </form>
+        </div>
+    </form>
+    </div>
+    <div th:insert="blocks/lower :: lower"></div>
+</th:block>

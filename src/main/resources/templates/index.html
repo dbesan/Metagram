@@ -1,0 +1,17 @@
+<th:block xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div th:insert="blocks/common :: common"></div>
+
+    <div class="container mt-5">
+        <h5>Hello, [[${#httpServletRequest.remoteUser}?${#httpServletRequest.remoteUser}: Guest]].</h5>
+        <div>This is simple clone of Instagram</div>
+        <div sec:authorize="isAnonymous()">
+            <div class="mb-3">
+                <a class="btn btn-primary" href="/login">Login</a>
+            </div>
+            <div>
+                <a class="btn btn-primary" href="/registration">Registration</a>
+            </div>
+        </div>
+    </div>
+    <div th:insert="blocks/lower :: lower"></div>
+</th:block>
